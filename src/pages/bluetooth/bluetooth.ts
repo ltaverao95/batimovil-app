@@ -26,63 +26,69 @@ export class BluetoothPage {
     this.bluetoothSerial.discoverUnpaired().then((success) => {
       this.unpairedDevices = success;
       this.gettingDevices = false;
-      success.forEach(element => {
-        console.log(element.name);
-      });
+      success.forEach(
+        element => {
+          console.log(element.name);
+        }
+      );
     },
       (err) => {
         console.log(err);
-      })
+      }
+    );
 
-    this.bluetoothSerial.list().then((success) => {
-      this.pairedDevices = success;
-    },
+    this.bluetoothSerial.list().then(
+      (success) => {
+        this.pairedDevices = success;
+      },
       (err) => {
 
-      })
+      }
+    );
   }
+  
   success = (data) => alert(data);
   fail = (error) => alert(error);
 
   selectDevice(address: any) {
 
     let alert = this.alertCtrl.create({
-      title: 'Connect',
-      message: 'Do you want to connect with?',
+      title: 'Establecer Conexión',
+      message: '¿Te gustaría conectarte a este dispositivo?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Connect',
+          text: 'Conectar',
           handler: () => {
             this.bluetoothSerial.connect(address).subscribe(this.success, this.fail);
           }
         }
       ]
     });
-    alert.present();
 
+    alert.present();
   }
 
   disconnect() {
     let alert = this.alertCtrl.create({
-      title: 'Disconnect?',
-      message: 'Do you want to Disconnect?',
+      title: '¿Desconectar?',
+      message: '¿Te Gustaría desconectarte?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Disconnect',
+          text: 'Desconectar',
           handler: () => {
             this.bluetoothSerial.disconnect();
           }
@@ -91,5 +97,4 @@ export class BluetoothPage {
     });
     alert.present();
   }
-
 }
