@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { AlertController } from 'ionic-angular';
 
@@ -10,22 +10,24 @@ import { AlertController } from 'ionic-angular';
 })
 export class BluetoothPage {
 
-  unpairedDevices: any;
-  pairedDevices: any;
+  unpairedDevices: Array<any>;
+  pairedDevices: Array<any>;
   gettingDevices: Boolean;
+
   constructor(private bluetoothSerial: BluetoothSerial, private alertCtrl: AlertController) {
     bluetoothSerial.enable();
   }
 
   startScanning() {
-    this.pairedDevices = null;
-    this.unpairedDevices = null;
+    this.pairedDevices = new Array<any>();
+    this.unpairedDevices = new Array<any>();
     this.gettingDevices = true;
+
     this.bluetoothSerial.discoverUnpaired().then((success) => {
       this.unpairedDevices = success;
       this.gettingDevices = false;
       success.forEach(element => {
-        // alert(element.name);
+        console.log(element.name);
       });
     },
       (err) => {
