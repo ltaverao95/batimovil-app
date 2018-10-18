@@ -1,100 +1,56 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
-import { AlertController } from 'ionic-angular';
+import { CommonServicesProvider } from '../../providers/common-services/common-services';
 
 @IonicPage()
 @Component({
   selector: 'page-bluetooth',
   templateUrl: 'bluetooth.html',
+  providers: [CommonServicesProvider]
 })
 export class BluetoothPage {
 
   unpairedDevices: Array<any>;
   pairedDevices: Array<any>;
   gettingDevices: Boolean;
+  devicePaired: Boolean;
 
-  constructor(private bluetoothSerial: BluetoothSerial, private alertCtrl: AlertController) {
-    bluetoothSerial.enable();
+  constructor(private commonServices: CommonServicesProvider) {
+    this.unpairedDevices = commonServices.unpairedDevices;
+    this.pairedDevices = commonServices.pairedDevices;
+    this.gettingDevices = commonServices.gettingDevices;
+    this.devicePaired = commonServices.devicePaired;
   }
 
-  startScanning() {
-    this.pairedDevices = new Array<any>();
-    this.unpairedDevices = new Array<any>();
-    this.gettingDevices = true;
-
-    this.bluetoothSerial.discoverUnpaired().then((success) => {
-      this.unpairedDevices = success;
-      this.gettingDevices = false;
-      success.forEach(
-        element => {
-          console.log(element.name);
-        }
-      );
-    },
-      (err) => {
-        console.log(err);
-      }
-    );
-
-    this.bluetoothSerial.list().then(
-      (success) => {
-        this.pairedDevices = success;
-      },
-      (err) => {
-
-      }
-    );
-  }
-  
-  success = (data) => alert(data);
-  fail = (error) => alert(error);
+  startScanning(){
+    this.commonServices.startScanning();
+  }  
 
   selectDevice(address: any) {
-
-    let alert = this.alertCtrl.create({
-      title: 'Establecer Conexión',
-      message: '¿Te gustaría conectarte a este dispositivo?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Conectar',
-          handler: () => {
-            this.bluetoothSerial.connect(address).subscribe(this.success, this.fail);
-          }
-        }
-      ]
-    });
-
-    alert.present();
+    this.commonServices.selectDevice(address);
   }
 
   disconnect() {
-    let alert = this.alertCtrl.create({
-      title: '¿Desconectar?',
-      message: '¿Te Gustaría desconectarte?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Desconectar',
-          handler: () => {
-            this.bluetoothSerial.disconnect();
-          }
-        }
-      ]
-    });
-    alert.present();
+    this.commonServices.disconnect();
+  }
+
+  moveForward(){
+    this.commonServices.writeMoveForward();
+  }
+
+  moveBackward(){
+    this.commonServices.writeMoveBackward();
+  }
+
+  moveLeft(){
+    this.commonServices.writeMoveLeft();
+  }
+
+  moveRight(){
+    this.commonServices.writeMoveRight();
+  }
+
+  stop(){
+    this.commonServices.writeStop();
   }
 }

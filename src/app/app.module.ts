@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { CommonServicesProvider } from '../providers/common-services/common-services';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
     StatusBar,
     SplashScreen,
     BluetoothSerial,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CommonServicesProvider
   ]
 })
 export class AppModule {}
