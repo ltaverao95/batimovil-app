@@ -51,6 +51,7 @@ export class CommonServicesProvider {
 
   fail(error: any){
     this.devicePaired = false;
+    this.writeStop();
     alert(error);
   }
 
