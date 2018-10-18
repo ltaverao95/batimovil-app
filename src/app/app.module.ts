@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { BluetoothPage } from '../pages/bluetooth/bluetooth';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,18 +17,17 @@ import { CommonServicesProvider } from '../providers/common-services/common-serv
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     BluetoothPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     BluetoothPage
   ],
   providers: [

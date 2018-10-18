@@ -10,16 +10,8 @@ import { CommonServicesProvider } from '../../providers/common-services/common-s
 })
 export class BluetoothPage {
 
-  unpairedDevices: Array<any>;
-  pairedDevices: Array<any>;
-  gettingDevices: Boolean;
-  devicePaired: Boolean;
+  constructor(public commonServices: CommonServicesProvider) {
 
-  constructor(private commonServices: CommonServicesProvider) {
-    this.unpairedDevices = commonServices.unpairedDevices;
-    this.pairedDevices = commonServices.pairedDevices;
-    this.gettingDevices = commonServices.gettingDevices;
-    this.devicePaired = commonServices.devicePaired;
   }
 
   startScanning(){

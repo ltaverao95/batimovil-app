@@ -8,11 +8,55 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-card>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <img src="img/advance-card-map-madison.png">
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-item>
+      <ion-icon name="football" item-start large></ion-icon>
+      <h2>Museum of Football</h2>
+      <p>11 N. Way St, Madison, WI 53703</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="wine" item-start large></ion-icon>
+      <h2>Institute of Fine Cocktails</h2>
+      <p>14 S. Hop Avenue, Madison, WI 53703</p>
+    </ion-item>
+
+    <form [formGroup]="coordinatesForm">
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Latitud *</ion-label>
+          <ion-input type="text" 
+                     placeholder="Ej. 5.031008" 
+                     formControlName="latitude"
+                     required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Longitud *</ion-label>
+          <ion-input type="text" 
+                     placeholder="Ej. -75.467277" 
+                     formControlName="longitude"
+                     required></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
+
+    <ion-item>
+      <span item-start>18 min</span>
+      <span item-start>(2.6 mi)</span>
+      <button ion-button icon-start clear item-end (click)="sendCoordinates()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+
+  </ion-card>
 </ion-content>

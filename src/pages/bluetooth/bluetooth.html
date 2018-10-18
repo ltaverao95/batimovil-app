@@ -17,7 +17,9 @@
       Dispositivos Emparejados
     </ion-list-header>
     <ion-item *ngFor="let device of commonServices.pairedDevices">
-      {{device.name}}
+      <button ion-button color="light" (click)="selectDevice(device.address)">
+        {{device.name}}
+      </button>
     </ion-item>
     <button ion-button block (click)="disconnect()">
       <ion-icon name="power"></ion-icon> &nbsp;
@@ -27,9 +29,9 @@
       Dispositivos Disponibles
     </ion-list-header>
     <ion-item *ngFor='let device of commonServices.unpairedDevices'>
-      <span (click)="selectDevice(device.address)">
+      <button ion-button color="light" (click)="selectDevice(device.address)">
         {{device.name}}
-      </span>
+      </button>
     </ion-item>
 
     <ion-spinner name="crescent" *ngIf="commonServices.gettingDevices"></ion-spinner>

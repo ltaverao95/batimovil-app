@@ -15,7 +15,7 @@ export class CommonServicesProvider {
   }
 
   startScanning() {
-    
+
     this.pairedDevices = new Array<any>();
     this.unpairedDevices = new Array<any>();
     this.gettingDevices = true;
@@ -58,7 +58,7 @@ export class CommonServicesProvider {
 
     let alert = this.alertCtrl.create({
       title: 'Establecer Conexión',
-      message: '¿Te gustaría conectarte a este dispositivo?',
+      message: '¿Conectarse al dispositivo?',
       buttons: [
         {
           text: 'Cancelar',
@@ -83,7 +83,7 @@ export class CommonServicesProvider {
 
     let alert = this.alertCtrl.create({
       title: '¿Desconectar?',
-      message: '¿Te Gustaría desconectarte?',
+      message: '¿Desconectar el dispositivo?',
       buttons: [
         {
           text: 'Cancelar',
@@ -131,5 +131,31 @@ export class CommonServicesProvider {
 
   writeStop(){
     this.bluetoothSerial.write('5');
+  }
+
+  writeSendCoordinates(coordinates: string){
+
+    if(!coordinates){
+
+      let alert = this.alertCtrl.create({
+        title: 'Mensaje',
+        message: 'Debes ingresar las coordenadas',
+        buttons: [
+          {
+            text: 'Cerrar',
+            role: 'close',
+            handler: () => {
+              
+            }
+          }
+        ]
+      });
+  
+      alert.present();
+
+      return;
+    }
+
+    this.bluetoothSerial.write(coordinates);
   }
 }
