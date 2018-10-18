@@ -23,6 +23,7 @@ export class BluetoothPage {
   }
 
   disconnect() {
+    this.stop();
     this.commonServices.disconnect();
   }
 
